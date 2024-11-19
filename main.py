@@ -1,69 +1,35 @@
-
-def read_PQ():
-    """Read PicoQuant data
-
-    Lifetime data
-    Time trace
-    """
-
-def get_acf():
-    """Obtain the Autocorrelation Function from a time trace"""
-
-def fit_model():
-    """Fits data to a model"""
-
-def guess_model():
-    """Initial guess for model params"""
-
-def fit_distribution():
-    """Fit data to a distribution of lifetimes, using max-entropy method"""
-
-
 import ptufile
 import numpy as np
 import matplotlib.pyplot as plt
+import multipletau
+import pandas as pd
 
-file_path = r'D:\Data\FCS\20240828\slide3.sptw\02-mNG_LS_2\02-mNG_LS_2_1_1_1.ptu'
-file_path = r'D:\Data\FCS\20240828\slide2.sptw\01-R110_10p_80MHz_MQ_2\01-R110_10p_80MHz_MQ_2_2_1_1.ptu'
+FILE_PATH = r'D:\Data\FCS\20240807\20240807.sptw\DBD LS 100nM _29\DBD LS 100nM _29_3_1_1.ptu'
+BIN_TIME = 5e-7  # seconds
 
+# == Read file
+ptu_data = ptufile.PtuFile(FILE_PATH)
+records = ptu_data.decode_records(ptu_data.read_records())
+time = records['time'] * ptu_data.global_resolution
 
-ptu_data = ptufile.PtuFile(file_path)
-print(ptu_data)
-records = ptu_data.read_records()
-q = ptu_data.decode_records(records)
+# == Bin the time trace data
+total_time = time[-1] - time[0]
+n_bins = int(total_time // BIN_TIME)
+counts, bin_edges = np.histogram(time, bins=n_bins)
+counts = counts / BIN_TIME  # Units Hz
 
-# array with
-# time 
+# == Autocorrelate on a log-scale
+tau, acf = multipletau.autocorrelate(counts, m=16, normalize=True)[1:].T
 
+# == Write output to file
+df = pd.DataFrame({
+    't': tau,
+    'y': acf,
+})
+df.to_csv('acf.csv', index=False)
 
-
-
-
-time = q['time']
-time_resolution = ptu_data.global_resolution  # 1.28e-8 seconds/tick
-time_seconds = time * time_resolution
-total_time = time_seconds[-1] - time_seconds[0]  # seconds
-print(f'{total_time = :.2f} seconds')
-
-
-bin_time = 1e-3  # 1 millisecond
-n_bins = int(total_time // bin_time)
-print(f"{n_bins = }")
-
-counts, bin_edges = np.histogram(time_seconds, bins=n_bins)
-
-# plt.plot(counts)
-# plt.show()
-
-plt.plot(counts)
-plt.show()
-
-
-
-
-
-
-
-# dtime
-# channel
-# marker
+# == Visualize ACF
+if True:
+    plt.plot(tau, acf, '.k')
+    plt.xscale('log')
+    plt.show()
