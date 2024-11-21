@@ -1,32 +1,33 @@
-import ptufile
+from phconvert import pqreader as pq
+
+ROOT_DIR, FILE_NAME = r"D:\Data\FCS\20241120\20241120", r"01_R110_3_7_1_1.pt3"
+FILE_PATH = f"{ROOT_DIR}\\{FILE_NAME}"
+BIN_TIME = 3e-7  # seconds
+
+time, _, _, meta = pq.load_pt3(FILE_PATH)
+time = time * meta['timestamps_unit']
+
 import numpy as np
 import matplotlib.pyplot as plt
 import multipletau
 import pandas as pd
-
-FILE_PATH = r'D:\Data\FCS\20240807\20240807.sptw\DBD LS 100nM _29\DBD LS 100nM _29_3_1_1.ptu'
-BIN_TIME = 5e-7  # seconds
-
-# == Read file
-ptu_data = ptufile.PtuFile(FILE_PATH)
-records = ptu_data.decode_records(ptu_data.read_records())
-time = records['time'] * ptu_data.global_resolution
-
 # == Bin the time trace data
 total_time = time[-1] - time[0]
 n_bins = int(total_time // BIN_TIME)
+bin_time = total_time / n_bins
 counts, bin_edges = np.histogram(time, bins=n_bins)
 counts = counts / BIN_TIME  # Units Hz
 
 # == Autocorrelate on a log-scale
 tau, acf = multipletau.autocorrelate(counts, m=16, normalize=True)[1:].T
+tau *= bin_time
 
 # == Write output to file
 df = pd.DataFrame({
-    't': tau,
-    'y': acf,
+    'tau': tau,
+    'acf': acf,
 })
-df.to_csv('acf.csv', index=False)
+df.to_csv(f'{FILE_NAME}.csv', index=False)
 
 # == Visualize ACF
 if True:
