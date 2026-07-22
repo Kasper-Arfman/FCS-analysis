@@ -8,7 +8,6 @@ from _script_params import *
 CONFIG = filetools.read_yaml(CONFIG_PATH)
 FM = filetools.FileManager(ANALYSIS_CACHE, ANALYSIS_ROOT)
 
-
 def bundle_df(df: pd.DataFrame):
     x = np.array(df.index)
     y_avg = np.array(df.mean(axis=1))

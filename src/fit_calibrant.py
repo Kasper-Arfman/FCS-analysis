@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from scipy.optimize import curve_fit
 from pyjacket import filetools
-from tools.models import triplet_diffusion as model, triplet_decay, diffusion3D
+from tools.models import triplet_diffusion as model
 from _script_params import *
 
 CONFIG = filetools.read_yaml(CONFIG_PATH)

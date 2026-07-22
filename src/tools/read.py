@@ -35,7 +35,6 @@ class FCSreader:
 
 
 class FCSreaderPT3(FCSreader):
-
     def __init__(self, file_path: str):
         self.file_path = file_path
         self.time = self.get_time()
@@ -46,7 +45,6 @@ class FCSreaderPT3(FCSreader):
     
 
 class FCSreaderPTU(FCSreader):
-    
     def __init__(self, file_path: str):
         self.file_path = file_path
         self.time = self.get_time()
