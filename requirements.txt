@@ -1,1 +1,9 @@
+matplotlib >= 3.9.2
+numpy >= 2.0.2
+pandas >= 2.2.3
+scipy >= 1.14.1
+numba >= 0.60.0
+multipletau >= 0.4.1
+ptufile >= 2024.10.10
+phconvert >= 0.9.1
 pyjacket >= 1.0.0

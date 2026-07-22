@@ -1,5 +1,10 @@
 # FCS analysis
-Code belonging to the PhD thesis: Combine and Conquer: Auxin Reponse Factor Multimers Anchoring Nucleotides.
+Fluorescence Correlation Spectroscopy analysis code belonging to the PhD thesis: Combine and Conquer: Auxin Reponse Factor Multimers Anchoring Nucleotides.
+
+Install the dependencies using 
+```Python
+pip install -r requirements.txt
+```
 
 ## Usage
 1. Modify the contents of `_script_params.py`. In this file, you specify
