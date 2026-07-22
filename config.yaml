@@ -1,0 +1,55 @@
+measurements:
+  241120_mutants100:
+    01_R110:
+      D: 270e-12
+    02_FL100_1:
+    02_FL100_2:
+    02_FL100_3:
+    03_DM100_1:
+    03_DM100_2:
+    03_DM100_3:
+    04_DBD100_1:
+    04_DBD100_2:
+    04_DBD100_3:
+    05_DP100_1:
+    05_DP100_2:
+    05_DP100_3:
+    06_mNG100_1:
+    06_mNG100_2:
+    06_mNG100_3:
+
+  251104_PB1:
+    R110:
+      D: 270e-12
+    DP0nM_green:
+    DP0nM_red:
+    DP7nM_green:
+    DP7nM_red:
+    DP35nM_green:
+    DP35nM_red:
+      exclude:
+      - ARF2mScl7nM_35nMDP_lp30_15AU_red_4_1_1
+    DP70nM_green:
+    DP70nM_red:
+    DP0nM_ARF0nM_green:
+    DP0nM_ARF0nM_red:
+    DP70nM_ARF0nM_green:
+    DP70nM_ARF0nM_red:
+
+  251105_labelratios:
+    DBD_20nM:
+      D: 50e-12
+    DBD_833nM:
+    sample1:  # 100:  0  unlabeled: labeled
+    sample2:  #  99:  1
+    sample3:  #  90: 10
+    sample4:  #  80: 20
+    sample5:  #  70: 30
+    sample6:  #  60: 40
+    sample7:  #  50: 50
+    sample8:  #  40: 60
+    sample9:  #  30: 70
+    sample10: #  20: 80
+    sample11: #  10: 90
+    sample12: #   1: 99
+    sample13: #   0:100
